@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .todo-container {
+            background: white;
+            width: 380px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .todo-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .todo-input input {
+            flex: 1;
+            padding: 8px;
+        }
+
+        .todo-input button {
+            padding: 8px 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        li.done span {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .actions button {
+            margin-left: 5px;
+            border: none;
+            padding: 4px 6px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .edit {
+            background: #2196F3;
+        }
+
+        .delete {
+            background: #f44336;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="todo-container">
+        <h2>📋 Todo List</h2>
+
+        <div class="todo-input">
+            <input type="text" id="todoInput" placeholder="Nhập công việc...">
+            <button onclick="addTodo()">Thêm</button>
+        </div>
+
+        <ul id="todoList"></ul>
+    </div>
+
+    <script>
+        function addTodo() {
+            const input = document.getElementById("todoInput");
+            const text = input.value.trim();
+
+            if (text === "") {
+                alert("Vui lòng nhập công việc!");
+                return;
+            }
+
+            const li = document.createElement("li");
+
+            const span = document.createElement("span");
+            span.textContent = text;
+            span.onclick = () => li.classList.toggle("done");
+
+            const actions = document.createElement("div");
+            actions.className = "actions";
+
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "Sửa";
+            editBtn.className = "edit";
+            editBtn.onclick = () => {
+                const newText = prompt("Sửa công việc:", span.textContent);
+                if (newText && newText.trim() !== "") {
+                    span.textContent = newText;
+                }
+            };
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "Xóa";
+            deleteBtn.className = "delete";
+            deleteBtn.onclick = () => li.remove();
+
+            actions.appendChild(editBtn);
+            actions.appendChild(deleteBtn);
+
+            li.appendChild(span);
+            li.appendChild(actions);
+
+            document.getElementById("todoList").appendChild(li);
+            input.value = "";
+        }
+    </script>
+
+</body>
+
+</html>
