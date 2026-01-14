@@ -1,4 +1,4 @@
-Docker execution steps:
+# Docker execution steps:
 
 1. Open the terminal and navigate to the directory containing the index.html file and the Dockerfile.
 
